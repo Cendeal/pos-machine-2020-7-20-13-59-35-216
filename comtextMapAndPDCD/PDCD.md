@@ -7,32 +7,32 @@
 ##### printReceipt
 - P: 2 minutes
 - D: 2 minutes
-- C:
-- A:
+- C: not thing
+- A: not thing
 ##### findAllItemsByBarCodes
 - P: 8 minutes
 - D: 6 minutes
-- C:
-- A:
+- C: not thing
+- A: not thing
 ##### handleCartItems
 - P: 10 minutes
 - D: 6
-- C:
-- A:
+- C: not thing
+- A: not thing
 
 ##### generateFormatReceiptDetail
 - P: 5 minutes
 - D: 4 minutes
-- C:
+- C: not thing
 - A:
 ##### calculateItemDetailInfo
 - P: 5 minutes
 - D: 3
-- C:
+- C: not thing
 - A:
 
 ##### calculateTotal
 - P: 4 minutes
 - D: 5 minutes
-- C:
-- A:
+- C: I am not familiar with "reduce", so I search its knowledge and use 2 minutes
+- A: I need to learn more useful function in js internal.
