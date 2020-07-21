@@ -24,12 +24,12 @@
 - P: 5 minutes
 - D: 4 minutes
 - C: not thing
-- A:
+- A: not thing
 ##### calculateItemDetailInfo
 - P: 5 minutes
 - D: 3
 - C: not thing
-- A:
+- A: not thing
 
 ##### calculateTotal
 - P: 4 minutes
