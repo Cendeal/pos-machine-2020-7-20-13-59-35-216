@@ -31,33 +31,31 @@ const DATA_SOURCE = [
     }
 ]
 
+/**
+ * @param barCodes:[string]
+ */
 function printReceipt(barCodes) {
-    const items = findAllItemsByBarCodes(barCodes)
-    const withQuantityItems = handleCartItems(items)
-    console.log(generateFormatReceiptDetail(withQuantityItems))
+    const withQuantityItems = calculateQuantity(barCodes)
+    const detailItems = findAllItemsByBarCodes(withQuantityItems)
+    console.log(generateFormatReceiptDetail(detailItems))
 }
 
-function findAllItemsByBarCodes(barCodes) {
-    const items = []
-    barCodes.forEach(barcode => {
-        const data = DATA_SOURCE.find(item => {
-            return barcode === item.barcode
-        })
-        if (data) {
-            items.push(data)
-        }
-    })
-    return items
-}
 
-function handleCartItems(items) {
+/**
+ * @param barCodes
+ * @returns {[{
+ *     barcode:'',
+ *     quantity:1
+ * }]}
+ */
+function calculateQuantity(barCodes) {
     let cart = {}
-    items.forEach(item => {
-        if (item.barcode in cart) {
-            cart[item.barcode].quantity++
+    barCodes.forEach(barcode => {
+        if (barcode in cart) {
+            cart[barcode].quantity++
         } else {
-            cart[item.barcode] = {
-                info: item,
+            cart[barcode] = {
+                barcode: barcode,
                 quantity: 1
             }
         }
@@ -65,29 +63,63 @@ function handleCartItems(items) {
     return Object.values(cart)
 }
 
-function generateFormatReceiptDetail(withQuantityItems) {
-    const itemDetails = calculateItemDetailInfo(withQuantityItems)
-    const total = calculateTotal(withQuantityItems)
+/**
+ * @param withQuantityItems
+ * @returns {[{
+ *      barcode: '',
+        name: '',
+        price: 1,
+        quantity:1
+
+ * }]}
+ */
+function findAllItemsByBarCodes(withQuantityItems) {
+    const detailItems = []
+    withQuantityItems.forEach(withQuantityItem => {
+        const data = DATA_SOURCE.find(item => {
+            return withQuantityItem.barcode === item.barcode
+        })
+        if (data) {
+            detailItems.push(Object.assign({}, withQuantityItem, data))
+        }
+    })
+    return detailItems
+}
+
+/**
+ * @param detailItems
+ * @returns {string}
+ */
+function generateFormatReceiptDetail(detailItems) {
+    const itemDetailMsgs = calculateItemDetailInfo(detailItems)
+    const total = calculateTotal(detailItems)
     return `
 ***<store earning no money>Receipt ***
-${itemDetails.join('\n')}
+${itemDetailMsgs.join('\n')}
 ----------------------
 Total: ${total} (yuan)
 **********************`
 }
 
+/**
+ * @param withQuantityItems
+ * @returns {[string]}
+ */
 function calculateItemDetailInfo(withQuantityItems) {
     let itemDetails = []
     withQuantityItems.forEach(item => {
-        itemDetails.push(`Name: ${item.info.name}, Quantity: ${item.quantity}, Unit price: ${item.info.price} (yuan), Subtotal: ${item.quantity * item.info.price} (yuan)`)
+        itemDetails.push(`Name: ${item.name}, Quantity: ${item.quantity}, Unit price: ${item.price} (yuan), Subtotal: ${item.quantity * item.price} (yuan)`)
     })
     return itemDetails
-
 }
 
+/**
+ * @param withQuantityItems
+ * @returns {number}
+ */
 function calculateTotal(withQuantityItems) {
     return withQuantityItems.reduce((total, currentValue) => {
-        return total + currentValue.quantity * currentValue.info.price
+        return total + currentValue.quantity * currentValue.price
     }, 0)
 }
 

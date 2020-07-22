@@ -72,6 +72,6 @@ Suppose that our database is as follows:
 4. Please repeat step 3 until all functions are implemented.
 #Todo
 - [x] redraw the contextMap
-- [ ] refactor code:
-    - [ ] optimize the "findAllItemsByBarCodes" function
-    - [ ] rebuild handleCartItems 
+- [x] refactor code:
+    - [x] optimize the "findAllItemsByBarCodes" function
+    - [x] rebuild handleCartItems 
