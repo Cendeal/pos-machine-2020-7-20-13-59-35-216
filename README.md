@@ -70,7 +70,7 @@ Suppose that our database is as follows:
 2. Please declare all the methods according to your diagram.
 3. Please implement the function according to the context diagram
 4. Please repeat step 3 until all functions are implemented.
-#Todo
+# Todo
 - [x] redraw the contextMap
 - [x] refactor code:
     - [x] optimize the "findAllItemsByBarCodes" function
