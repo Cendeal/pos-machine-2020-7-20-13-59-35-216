@@ -124,5 +124,10 @@ function calculateTotal(withQuantityItems) {
 }
 
 module.exports = {
-    printReceipt
+    printReceipt,
+    calculateQuantity,
+    findAllItemsByBarCodes,
+    generateFormatReceiptDetail,
+    calculateItemDetailInfo,
+    calculateTotal
 };
